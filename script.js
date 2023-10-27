@@ -13,7 +13,6 @@ const savedTodos = localStorage.getItem('todos');
 let todos = savedTodos ? JSON.parse(savedTodos) : [];
 let numb = todos.length;
 
-render();
 
 function newTodo() {
   let text = prompt("enter ToDo")
