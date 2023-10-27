@@ -9,17 +9,22 @@ const list = document.getElementById('todo-list')
 const itemCountSpan = document.getElementById('item-count')
 const uncheckedCountSpan = document.getElementById('unchecked-count')
 
-let todos = [];
-let numb = 0;
+const savedTodos = localStorage.getItem('todos');
+let todos = savedTodos ? JSON.parse(savedTodos) : [];
+let numb = todos.length;
+
+render();
 
 function newTodo() {
   let text = prompt("enter ToDo")
-  let todo = { id: numb++, text, checked: Math.random()<0.5?true:false}
-  todos.push(todo)
-  console.log(todos)
-  render();
-  updateCounter();
-
+  if (text) {
+    let todo = { id: numb++, text, checked: Math.random()<0.5?true:false}
+    todos.push(todo)
+    console.log(todos)
+    saveTodos();
+    render();
+    updateCounter();
+  }
 }
 
 function render(){
@@ -46,8 +51,13 @@ function deleteTodo(id){
   todos = todos.filter(todo => todo.id !== id);
   render();
   updateCounter();
+  saveTodos();
 }
 
 function toggleTodo(id){
   todos = todos.map(todo => todo.id === id ? {id: todo.id, text: todo.text, checked: !todo.checked}:todo)
+}
+
+function saveTodos() {
+  localStorage.setItem('todos', JSON.stringify(todos));
 }
