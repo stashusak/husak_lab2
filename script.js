@@ -60,5 +60,6 @@ function toggleTodo(id){
 function saveTodos() {
   localStorage.setItem('todos', JSON.stringify(todos));
 }
-document.addEventListener('DOMContentLoaded', render);
 document.addEventListener('DOMContentLoaded', updateCounter);
+document.addEventListener('DOMContentLoaded', render);
+
